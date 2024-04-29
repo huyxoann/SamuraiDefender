@@ -1,0 +1,4 @@
+repository "SamuraiDefenderV2@huyxoann@cloud"
+  path "/"
+    br "/main"
+    co "/main"
