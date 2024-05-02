@@ -9,8 +9,6 @@ public class Tengu : MonoBehaviour
 {
     Rigidbody2D rb;
 
-    PlayerMovement player;
-
     public DetectionZone attackZone;
     Animator animator;
     TouchingDirections touchingDirections;

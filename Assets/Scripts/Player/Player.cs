@@ -7,13 +7,14 @@ using UnityEngine.InputSystem;
 using static AnimationStrings;
 using static PlayerStats;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections))]
+[RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 public class PlayerMovement : MonoBehaviour
 {
     Vector2 moveInput;
     Rigidbody2D rb;
     Animator animator;
     TouchingDirections touchingDirections;
+    Damageable damageable;
 
     public HeartBar heartBar;
     public StaminaBar staminaBar;
@@ -104,21 +105,26 @@ public class PlayerMovement : MonoBehaviour
             _isFacingRight = value;
         }
     }
+    public bool IsAlive
+    {
+        get { return animator.GetBool(AnimationStrings.isAlive); }
+    }
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
+        damageable = GetComponent<Damageable>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         // Set up máu và stamina cho character
-        currentHealth = maxHealth;
+        currentHealth = damageable.MaxHealth;
         currentStamina = maxStamina;
-        heartBar.SetMaxHealth(maxHealth);
+        heartBar.SetMaxHealth(damageable.MaxHealth);
         staminaBar.SetMaxStamina(maxStamina);
     }
 
@@ -174,9 +180,16 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = context.ReadValue<Vector2>();
 
-        IsMoving = moveInput != Vector2.zero;
 
-        SetFacingDerection(moveInput);
+        if (IsAlive)
+        {
+            IsMoving = moveInput != Vector2.zero;
+            SetFacingDerection(moveInput);
+
+        }else{
+            IsMoving = false;
+        }
+
     }
 
     public void SetFacingDerection(Vector2 moveInput)
@@ -234,7 +247,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (context.started)
         {
-            
+
             animator.SetTrigger(AnimationStrings.attack);
         }
         else if (context.canceled)

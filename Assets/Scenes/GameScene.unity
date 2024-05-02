@@ -2731,6 +2731,10 @@ PrefabInstance:
       propertyPath: jumpImpulse
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 112534798515064916, guid: b29d25b62fce99344ae49496d9442f13, type: 3}
+      propertyPath: _isFacingRight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4905548330738586873, guid: b29d25b62fce99344ae49496d9442f13, type: 3}
       propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 0
