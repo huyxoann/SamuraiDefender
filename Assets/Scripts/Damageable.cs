@@ -5,10 +5,11 @@ using UnityEngine;
 public class Damageable : MonoBehaviour
 {
     Animator animator;
+    Rigidbody2D rb;
     private int maxHealth = 100;
+    [SerializeField]
     private int currentHealth;
     public int MaxHealth { get { return maxHealth; } set { maxHealth = value; } }
-    [SerializeField]
     public int CurrentHealth
     {
         get { return currentHealth; }
@@ -48,6 +49,7 @@ public class Damageable : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
     }
     // Start is called before the first frame update
     void Start()
@@ -67,16 +69,18 @@ public class Damageable : MonoBehaviour
             }
             timeSinceHit += Time.deltaTime;
         }
-        TakeDamage(10);
     }
 
-    public void TakeDamage(int damage)
+    public bool TakeDamage(int damage)
     {
         if (IsAlive && !isInvincible)
         {
             CurrentHealth -= damage;
+            animator.SetTrigger(AnimationStrings.hurt);
             isInvincible = true;
+            return true;
         }
+        return false;
 
     }
 }

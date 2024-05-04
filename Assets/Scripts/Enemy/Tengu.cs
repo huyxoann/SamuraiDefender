@@ -12,6 +12,10 @@ public class Tengu : MonoBehaviour
     public DetectionZone attackZone;
     Animator animator;
     TouchingDirections touchingDirections;
+    Damageable damageable;
+
+    GameObject playerToFollow;
+    private Transform playerTransform;
 
     public enum WalkableDirection { Right, Left }
     private WalkableDirection _walkDirection;
@@ -40,6 +44,8 @@ public class Tengu : MonoBehaviour
             _walkDirection = value;
         }
     }
+
+
 
     public float walkSpeed = 2.0f;
     public float walkStopRate = 0.05f;
@@ -76,24 +82,29 @@ public class Tengu : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
+        damageable = GetComponent<Damageable>();
+        playerToFollow = GameObject.FindGameObjectWithTag("Player");
+        playerTransform = playerToFollow.GetComponent<Transform>();
     }
 
     private void FixedUpdate()
     {
 
-        if (touchingDirections.IsGrounded && touchingDirections.IsOnWall)
-        {
-            FlipDirection();
-        }
+        
 
-        if (CanMove)
-        {
-            rb.velocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x,0,walkStopRate), rb.velocity.y);
-        }
+        // if (touchingDirections.IsGrounded && touchingDirections.IsOnWall)
+        // {
+        //     FlipDirection();
+        // }
+
+        // if (CanMove && touchingDirections.IsGrounded)
+        // {
+        //     rb.velocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.velocity.y);
+        // }
+        // else
+        // {
+        //     rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x,0,walkStopRate), rb.velocity.y);
+        // }
     }
 
     private void FlipDirection()
@@ -122,5 +133,13 @@ public class Tengu : MonoBehaviour
     void Update()
     {
         HasTarget = attackZone.detectedColliders.Count > 0;
+        Vector2 direction = playerTransform.position - transform.position;
+
+        float dotProduct = Vector2.Dot(direction, walkDirectionVector);
+        if(dotProduct < 0.0f){
+            FlipDirection();
+        }
+
+        transform.Translate(direction * walkSpeed * Time.deltaTime * 0.1f);
     }
 }
