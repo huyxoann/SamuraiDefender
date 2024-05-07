@@ -116,6 +116,8 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
+
+        damageable.MaxHealth = PlayerStats.maxHealth;
     }
 
     // Start is called before the first frame update
@@ -131,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        heartBar.SetHealth(damageable.CurrentHealth);
     }
 
     void FixedUpdate()

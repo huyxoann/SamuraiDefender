@@ -6,7 +6,7 @@ public class Damageable : MonoBehaviour
 {
     Animator animator;
     Rigidbody2D rb;
-    private int maxHealth = 100;
+    private int maxHealth;
     [SerializeField]
     private int currentHealth;
     public int MaxHealth { get { return maxHealth; } set { maxHealth = value; } }
@@ -28,7 +28,7 @@ public class Damageable : MonoBehaviour
     private bool isInvincible = false;
     private float timeSinceHit = 0;
     [SerializeField]
-    private float isInvincibilityTimer = 0.25f;
+    private float isInvincibilityTimer = 0.75f;
 
     [SerializeField]
     public bool IsAlive
@@ -54,7 +54,8 @@ public class Damageable : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentHealth = maxHealth;
+        currentHealth = MaxHealth;
+
     }
 
     // Update is called once per frame
@@ -78,9 +79,20 @@ public class Damageable : MonoBehaviour
             CurrentHealth -= damage;
             animator.SetTrigger(AnimationStrings.hurt);
             isInvincible = true;
+
+            CharacterEvent.characterDamaged.Invoke(gameObject, damage);
+
             return true;
         }
         return false;
 
+    }
+    public void Heal(int healthRestore){
+        if(IsAlive){
+            CurrentHealth += healthRestore;
+            if(CurrentHealth > MaxHealth){
+                CurrentHealth = MaxHealth;
+            }
+        }
     }
 }

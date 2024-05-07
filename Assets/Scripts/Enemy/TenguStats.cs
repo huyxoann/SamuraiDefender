@@ -4,4 +4,5 @@ using UnityEngine;
 
 internal class TenguStats : ScriptableObject
 {
+    internal static int maxHealth = 20;
 }

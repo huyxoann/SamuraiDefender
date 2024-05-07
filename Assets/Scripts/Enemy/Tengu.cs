@@ -73,9 +73,10 @@ public class Tengu : MonoBehaviour
         }
         set
         {
-
+            
         }
     }
+
 
     private void Awake()
     {
@@ -85,12 +86,15 @@ public class Tengu : MonoBehaviour
         damageable = GetComponent<Damageable>();
         playerToFollow = GameObject.FindGameObjectWithTag("Player");
         playerTransform = playerToFollow.GetComponent<Transform>();
+
+        damageable.MaxHealth = TenguStats.maxHealth;
+
     }
 
     private void FixedUpdate()
     {
 
-        
+
 
         // if (touchingDirections.IsGrounded && touchingDirections.IsOnWall)
         // {
@@ -126,20 +130,31 @@ public class Tengu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
     void Update()
     {
         HasTarget = attackZone.detectedColliders.Count > 0;
-        Vector2 direction = playerTransform.position - transform.position;
 
-        float dotProduct = Vector2.Dot(direction, walkDirectionVector);
-        if(dotProduct < 0.0f){
-            FlipDirection();
+        FollowToPlayer();
+
+    }
+
+    void FollowToPlayer()
+    {
+        if (CanMove)
+        {
+            Vector2 direction = playerTransform.position - transform.position;
+
+            float dotProduct = Vector2.Dot(direction, walkDirectionVector);
+            if (dotProduct < 0.0f)
+            {
+                FlipDirection();
+            }
+
+            transform.Translate(direction * walkSpeed * Time.deltaTime * 0.1f);
         }
 
-        transform.Translate(direction * walkSpeed * Time.deltaTime * 0.1f);
     }
 }
