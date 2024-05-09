@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Vase
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - PlayerHitBox
   - EnemyHitBox
   - Vase
-  - 
+  - Item
   - 
   - 
   - 
@@ -50,4 +51,10 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3325315019
+    locked: 0
+  - name: Enemy
+    uniqueID: 254106433
+    locked: 0
+  - name: Item
+    uniqueID: 1309576099
     locked: 0

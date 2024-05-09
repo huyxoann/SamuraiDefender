@@ -93,6 +93,7 @@ public class Damageable : MonoBehaviour
             if(CurrentHealth > MaxHealth){
                 CurrentHealth = MaxHealth;
             }
+            CharacterEvent.characterHealed(gameObject, healthRestore);
         }
     }
 }

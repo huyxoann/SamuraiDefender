@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6937660945145582011}
   - component: {fileID: 6538686916471183853}
   - component: {fileID: 1010483398806360933}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Apple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,6 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b14a3ebf3cffeb40b124989542f7ad3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthRestoreAmount: 10
+  spinRotationSpeed: {x: 0, y: 100, z: 0}
 --- !u!58 &1010483398806360933
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -127,7 +129,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

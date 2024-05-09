@@ -34,6 +34,8 @@ public class HealthText : MonoBehaviour
         {
             float newAlpha = startColor.a * (1 - timeElapsed / timeToFade);
             textMeshPro.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
+        }else{
+            Destroy(gameObject);
         }
     }
 }

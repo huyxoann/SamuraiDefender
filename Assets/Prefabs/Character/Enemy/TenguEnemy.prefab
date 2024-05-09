@@ -15,10 +15,10 @@ GameObject:
   - component: {fileID: 820317578293421593}
   - component: {fileID: 5413566082200967758}
   - component: {fileID: 306545632933826874}
-  - component: {fileID: 169633576103122687}
+  - component: {fileID: 4936708567334855635}
   m_Layer: 7
   m_Name: TenguEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,8 +151,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.019916426, y: -0.06087331}
-  m_Size: {x: 0.32579035, y: 0.73208565}
+  m_Offset: {x: 0.028523168, y: -0.16426265}
+  m_Size: {x: 0.2797355, y: 0.6951158}
   m_Direction: 0
 --- !u!114 &820317578293421593
 MonoBehaviour:
@@ -184,7 +184,7 @@ MonoBehaviour:
   castFilter:
     useTriggers: 0
     useLayerMask: 1
-    useDepth: 0
+    useDepth: 1
     useOutsideDepth: 0
     useNormalAngle: 0
     useOutsideNormalAngle: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentHealth: 0
   isInvincibilityTimer: 0.25
---- !u!95 &169633576103122687
+--- !u!95 &4936708567334855635
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -301,7 +301,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05610551, y: -0.13558835}
+  m_Offset: {x: -0.23060718, y: -0.13558835}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -312,7 +312,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7475252, y: 0.52310324}
+  m_Size: {x: 0.53147554, y: 0.52310324}
   m_EdgeRadius: 0
 --- !u!114 &5618667868214131453
 MonoBehaviour:
@@ -367,7 +367,7 @@ PolygonCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8291484492261004889}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
