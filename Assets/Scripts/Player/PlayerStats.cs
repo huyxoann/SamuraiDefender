@@ -19,7 +19,7 @@ internal class PlayerStats : ScriptableObject
     internal static float walkSpeed = 4f;
     internal static float runningSpeed = 7f;
     internal static float airSpeed = 5f;
-    internal static float jumpImpulse = 5f;
+    internal static float jumpImpulse = 8f;
 
     internal static bool _isMoving = false;
     internal static bool _isRunning = false;

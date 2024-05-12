@@ -24,6 +24,7 @@ public class HealthPickup : MonoBehaviour
             {
                 damageable.Heal(healthRestoreAmount);
                 Destroy(gameObject);
+                GameManager.IncreaseScore(5);
             }else{
                 return;
             }

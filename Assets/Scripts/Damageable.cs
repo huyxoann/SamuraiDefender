@@ -20,6 +20,7 @@ public class Damageable : MonoBehaviour
             {
                 IsAlive = false;
                 Debug.Log("Dead");
+                GameManager.IncreaseScore(10);
             }
         }
     }
@@ -82,15 +83,22 @@ public class Damageable : MonoBehaviour
 
             CharacterEvent.characterDamaged.Invoke(gameObject, damage);
 
+            if(gameObject.CompareTag("Vase") || gameObject.CompareTag("Player")){
+                GameManager.IncreaseScore(-1);
+            }
+
             return true;
         }
         return false;
 
     }
-    public void Heal(int healthRestore){
-        if(IsAlive){
+    public void Heal(int healthRestore)
+    {
+        if (IsAlive)
+        {
             CurrentHealth += healthRestore;
-            if(CurrentHealth > MaxHealth){
+            if (CurrentHealth > MaxHealth)
+            {
                 CurrentHealth = MaxHealth;
             }
             CharacterEvent.characterHealed(gameObject, healthRestore);

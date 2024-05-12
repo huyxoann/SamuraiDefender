@@ -9,12 +9,13 @@ public class GameFlow : MonoBehaviour
 {
 
     public GameObject enemyPrefab;
+    public float positionSpawnChange = 0.5f;
 
     public int phase1EnemyCount = 5;
     public int phase2EnemyCount = 10;
     public int phase3EnemyCount = 12;
 
-    private int currentPhase = 1;
+    public int currentPhase = 1;
     private bool phaseStarted = false;
 
 
@@ -22,6 +23,11 @@ public class GameFlow : MonoBehaviour
     void Start()
     {
         StartPhase(currentPhase);
+        GameManager.ResetScore();
+    }
+
+    public int GetCurrentPhase(){
+        return currentPhase;
     }
 
     private void StartPhase(int currentPhase)
@@ -59,14 +65,21 @@ public class GameFlow : MonoBehaviour
     {
         for (int i = 0; i < phaseEnemyCount; i++)
         {
-            Vector3 spawnPos = new Vector3(-8, 0.5f, 5);
-            Quaternion spawnRotation = Quaternion.Euler(0f, 0f, 0f);
-            Instantiate(enemyPrefab, spawnPos, spawnRotation);
-            await Task.Delay(2000);
+            if (Random.Range(0f, 1f) <= positionSpawnChange)
+            {
+                Vector3 spawnPos = new Vector3(-10, 5, 0);
+                Quaternion spawnRotation = Quaternion.Euler(0f, 0f, 0f);
+                Instantiate(enemyPrefab, spawnPos, spawnRotation);
+                await Task.Delay(2000);
+            }else{
+                Vector3 spawnPos = new Vector3(12, 4, 0);
+                Quaternion spawnRotation = Quaternion.Euler(0f, 0f, 0f);
+                Instantiate(enemyPrefab, spawnPos, spawnRotation);
+                await Task.Delay(2000);
+            }
+
         }
     }
-
-    // Update is called once per frame
 
 
     private void NextPhase()

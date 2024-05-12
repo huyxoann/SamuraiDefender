@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class FadeRemoveBehavior : StateMachineBehaviour
 {
@@ -9,7 +10,6 @@ public class FadeRemoveBehavior : StateMachineBehaviour
     SpriteRenderer spriteRenderer;
     GameObject objToRemove;
     Color startColor;
-    // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         timeElapsed = 0.0f;
@@ -22,11 +22,12 @@ public class FadeRemoveBehavior : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         timeElapsed += Time.deltaTime;
-        float newAlpha = startColor.a * (1-timeElapsed/fadeTime);
+        float newAlpha = startColor.a * (1 - timeElapsed / fadeTime);
         spriteRenderer.color = new Color(startColor.r, startColor.g, startColor.b, newAlpha);
         if (timeElapsed > fadeTime)
         {
             Destroy(objToRemove);
+
         }
     }
 

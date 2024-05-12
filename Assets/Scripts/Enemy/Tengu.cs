@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 
@@ -15,6 +16,10 @@ public class Tengu : MonoBehaviour
     Damageable damageable;
 
     GameObject playerToFollow;
+
+
+    public GameObject healItem;
+    private bool itemSpawnYet = false;
     private Transform playerTransform;
 
     public enum WalkableDirection { Right, Left }
@@ -73,7 +78,7 @@ public class Tengu : MonoBehaviour
         }
         set
         {
-            
+
         }
     }
 
@@ -93,22 +98,10 @@ public class Tengu : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-
-
-        // if (touchingDirections.IsGrounded && touchingDirections.IsOnWall)
-        // {
-        //     FlipDirection();
-        // }
-
-        // if (CanMove && touchingDirections.IsGrounded)
-        // {
-        //     rb.velocity = new Vector2(walkSpeed * walkDirectionVector.x, rb.velocity.y);
-        // }
-        // else
-        // {
-        //     rb.velocity = new Vector2(Mathf.Lerp(rb.velocity.x,0,walkStopRate), rb.velocity.y);
-        // }
+        if (!damageable.IsAlive && !itemSpawnYet)
+        {
+            SpawnHealItem();
+        }
     }
 
     private void FlipDirection()
@@ -139,6 +132,15 @@ public class Tengu : MonoBehaviour
 
         FollowToPlayer();
 
+    }
+    public void SpawnHealItem()
+    {
+        float healItemDropChance = 0.6f;
+        if (UnityEngine.Random.Range(0.0f, 1.0f) < healItemDropChance)
+        {
+            Instantiate(healItem, gameObject.transform.position, Quaternion.identity);
+            itemSpawnYet = true;
+        }
     }
 
     void FollowToPlayer()

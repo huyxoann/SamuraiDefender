@@ -116,7 +116,6 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
-
         damageable.MaxHealth = PlayerStats.maxHealth;
     }
 
@@ -134,6 +133,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         heartBar.SetHealth(damageable.CurrentHealth);
+
     }
 
     void FixedUpdate()

@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackZone: {fileID: 5618667868214131453}
+  healItem: {fileID: 4330981494381756492, guid: ad12768b2334ef140b8e65d46db4d22b, type: 3}
   walkSpeed: 2
   walkStopRate: 0.05
 --- !u!114 &5413566082200967758
