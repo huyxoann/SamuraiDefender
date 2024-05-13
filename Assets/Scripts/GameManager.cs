@@ -5,10 +5,18 @@ public class GameManager : MonoBehaviour
     public static int score = 0;
     public static int hi_score = 0;
 
+    public static GameState gameState;
+
+    public enum GameState
+    {
+        NewGame, Continue
+    }
+
     public static void IncreaseScore(int addScore)
     {
         score += addScore;
-        if(score<0){
+        if (score < 0)
+        {
             score = 0;
         }
     }
@@ -20,7 +28,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if(PlayerPrefs.HasKey("HighScore")){
+        if (PlayerPrefs.HasKey("HighScore"))
+        {
             hi_score = PlayerPrefs.GetInt("HighScore");
         }
     }

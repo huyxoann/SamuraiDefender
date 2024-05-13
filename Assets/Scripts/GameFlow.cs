@@ -2,13 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class GameFlow : MonoBehaviour
 {
-
+    public SaveManager saveManager;
     public GameObject enemyPrefab;
+    public GameObject player;
+    public GameObject vase;
+    private Damageable damageablePlayer;
+    private Damageable damageableVase;
+    public GameObject gameOverPanel;
     public float positionSpawnChange = 0.5f;
 
     public int phase1EnemyCount = 5;
@@ -20,37 +26,46 @@ public class GameFlow : MonoBehaviour
 
 
     // Start is called before the first frame update
+    void Awake()
+    {
+        damageablePlayer = player.GetComponent<Damageable>();
+        damageableVase = vase.GetComponent<Damageable>();
+    }
     void Start()
     {
+
+        if (GameManager.gameState == GameManager.GameState.NewGame)
+        {
+
+        }
+        else if (GameManager.gameState == GameManager.GameState.Continue)
+        {
+            GameData data = saveManager.LoadGame();
+            if (data != null)
+            {
+                GameManager.score = data.score;
+                currentPhase = data.phase;
+                player.transform.position = new Vector3(data.playerPosition_x, data.playerPosition_y, 0);
+                damageablePlayer.CurrentHealth = data.playerHealth;
+            }
+        }
+
+
         StartPhase(currentPhase);
         GameManager.ResetScore();
     }
 
-    public int GetCurrentPhase(){
+    public int GetCurrentPhase()
+    {
         return currentPhase;
     }
 
     private void StartPhase(int currentPhase)
     {
         phaseStarted = true;
-        switch (currentPhase)
-        {
-            case 1:
-                SpawnEnemies(phase1EnemyCount);
-                Debug.Log("Phase 1 end");
-                break;
-            case 2:
-                SpawnEnemies(phase2EnemyCount);
-                Debug.Log("Phase 2 end");
-                break;
-            case 3:
-                SpawnEnemies(phase3EnemyCount);
-                Debug.Log("Phase 3 end");
-                break;
-            default:
-                Debug.Log("Invalid phase number");
-                break;
-        }
+        int enemies = phase1EnemyCount += 2;
+        SpawnEnemies(enemies);
+        Debug.Log(enemies);
     }
 
     void Update()
@@ -58,6 +73,12 @@ public class GameFlow : MonoBehaviour
         if (phaseStarted && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
             NextPhase();
+        }
+
+        if (!damageablePlayer.IsAlive || !damageableVase.IsAlive)
+        {
+            gameOverPanel.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 
@@ -70,12 +91,14 @@ public class GameFlow : MonoBehaviour
                 Vector3 spawnPos = new Vector3(-10, 5, 0);
                 Quaternion spawnRotation = Quaternion.Euler(0f, 0f, 0f);
                 Instantiate(enemyPrefab, spawnPos, spawnRotation);
-                await Task.Delay(2000);
-            }else{
+                await Task.Delay(2500);
+            }
+            else
+            {
                 Vector3 spawnPos = new Vector3(12, 4, 0);
                 Quaternion spawnRotation = Quaternion.Euler(0f, 0f, 0f);
                 Instantiate(enemyPrefab, spawnPos, spawnRotation);
-                await Task.Delay(2000);
+                await Task.Delay(2500);
             }
 
         }
@@ -86,7 +109,7 @@ public class GameFlow : MonoBehaviour
     {
         currentPhase++;
 
-        if (currentPhase <= 3)
+        if (currentPhase <= 50)
         {
             StartPhase(currentPhase);
         }

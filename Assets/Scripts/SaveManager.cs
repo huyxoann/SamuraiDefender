@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 public class SaveManager : MonoBehaviour
 {
-    private string saveFilePath = "save.json";
+    private string saveFilePath = "SaveFile/save.json";
 
     public GameObject player;
     private Damageable damageable;
@@ -13,7 +13,6 @@ public class SaveManager : MonoBehaviour
 
     void Awake()
     {
-        // player = GameObject.FindGameObjectWithTag("Player");
         damageable = player.GetComponent<Damageable>();
     }
 
@@ -34,13 +33,15 @@ public class SaveManager : MonoBehaviour
         Debug.Log(json);
 
     }
-    public void LoadGame(){
+    public GameData LoadGame(){
         if(File.Exists(saveFilePath)){
             string json = File.ReadAllText(saveFilePath);
             GameData data = JsonConvert.DeserializeObject<GameData>(json);
             Debug.Log(data.score);
+            return data;
         }else{
             Debug.Log("No save file found!");
+            return null;
         }
     }
 }

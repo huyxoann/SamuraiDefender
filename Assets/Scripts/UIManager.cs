@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,10 +12,16 @@ public class UIManager : MonoBehaviour
     public GameObject damageTextPrefab;
     public GameObject healthTextPrefab;
     public Canvas gameCanvas;
+    
 
-    private void Awake() {
+    private void Awake()
+    {
         gameCanvas = FindObjectOfType<Canvas>();
-        
+
+    }
+
+    void Update()
+    {
     }
 
     void OnEnable()
@@ -52,8 +60,21 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(1);
     }
 
+    public void StartNewGame()
+    {
+        GameManager.gameState = GameManager.GameState.NewGame;
+        SceneManager.LoadScene(1);
+    }
+    public void ContinueGame()
+    {
+        GameManager.gameState = GameManager.GameState.Continue;
+        SceneManager.LoadScene(1);
+
+    }
+
     public void QuitGame()
     {
         Application.Quit();
     }
+    
 }
