@@ -79,6 +79,7 @@ public class GameFlow : MonoBehaviour
         {
             gameOverPanel.SetActive(true);
             Time.timeScale = 0;
+            saveManager.DeleteSave();
         }
     }
 

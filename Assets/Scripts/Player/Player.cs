@@ -15,7 +15,8 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
     TouchingDirections touchingDirections;
     Damageable damageable;
-
+    AudioManager audioManager;
+    
     public HeartBar heartBar;
     public StaminaBar staminaBar;
     public bool IsMoving
@@ -117,6 +118,7 @@ public class PlayerMovement : MonoBehaviour
         touchingDirections = GetComponent<TouchingDirections>();
         damageable = GetComponent<Damageable>();
         damageable.MaxHealth = PlayerStats.maxHealth;
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Start is called before the first frame update
@@ -252,6 +254,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             animator.SetTrigger(AnimationStrings.attack);
+            audioManager.PlaySwordSwing();
         }
         else if (context.canceled)
         {

@@ -89,7 +89,7 @@ public class Tengu : MonoBehaviour
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
         damageable = GetComponent<Damageable>();
-        playerToFollow = GameObject.FindGameObjectWithTag("Player");
+        playerToFollow = GameObject.FindGameObjectWithTag("Vase");
         playerTransform = playerToFollow.GetComponent<Transform>();
 
         damageable.MaxHealth = TenguStats.maxHealth;

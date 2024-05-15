@@ -44,4 +44,11 @@ public class SaveManager : MonoBehaviour
             return null;
         }
     }
+
+    public void DeleteSave(){
+        if(File.Exists(saveFilePath)){
+            File.Delete(saveFilePath);
+            Debug.Log("Save file deleted!");
+        }
+    }
 }

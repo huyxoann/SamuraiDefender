@@ -13,11 +13,26 @@ public class UIManager : MonoBehaviour
     public GameObject healthTextPrefab;
     public Canvas gameCanvas;
     
+    AudioManager audioManager;
+
+    public string gameSceneName= "GameScene";
+    public string mainSceneName= "MenuScene";
 
     private void Awake()
     {
         gameCanvas = FindObjectOfType<Canvas>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
 
+    }
+
+    void Start()
+    {
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        if(currentSceneName==mainSceneName){
+            audioManager.PlayMusic(audioManager.mainTheme);
+        }else if(currentSceneName==gameSceneName){
+            audioManager.PlayMusic(audioManager.battleTheme);
+        }
     }
 
     void Update()
@@ -58,18 +73,18 @@ public class UIManager : MonoBehaviour
     public void LoadGameScene()
     {
         SceneManager.LoadScene(1);
+        audioManager.PlayMusic(audioManager.battleTheme);
     }
 
     public void StartNewGame()
     {
         GameManager.gameState = GameManager.GameState.NewGame;
-        SceneManager.LoadScene(1);
+        LoadGameScene();
     }
     public void ContinueGame()
     {
         GameManager.gameState = GameManager.GameState.Continue;
-        SceneManager.LoadScene(1);
-
+        LoadGameScene();
     }
 
     public void QuitGame()
